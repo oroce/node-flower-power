@@ -458,35 +458,51 @@ FlowerPower.prototype.disableCalibratedLiveMode = function(callback) {
 };
 
 FlowerPower.prototype.getHistoryNbEntries = function(callback) {
-	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_NB_ENTRIES_UUID, function (data) {
+	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_NB_ENTRIES_UUID, function (err, data) {
+    console.log('err=%s, data=%s', err, data);
+    if (err) {
+      return callback(err);
+    }
 		var data = data.readUInt16LE(0);
 		callback(data);
 	}.bind(this));
 };
 
 FlowerPower.prototype.getHistoryLastEntryIdx = function(callback) {
-	this.readDataCharacteristic(HISTORY_SERVICE_UUID,HISTORY_LASTENTRY_IDX_UUID, function (data) {
+	this.readDataCharacteristic(HISTORY_SERVICE_UUID,HISTORY_LASTENTRY_IDX_UUID, function (err, data) {
+    if (err) {
+      return callback(err);
+    }
 		var data = data.readUInt32LE(0);
 		callback(data);
 	}.bind(this));
 };
 
 FlowerPower.prototype.getHistoryCurrentSessionID = function(callback) {
-	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_ID_UUID, function (data) {
+	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_ID_UUID, function (err, data) {
+    if (err) {
+      return callback(err);
+    }
 		var data = data.readUInt16LE(0);
 		callback(data);
 	}.bind(this));
 };
 
 FlowerPower.prototype.getHistoryCurrentSessionStartIdx = function(callback) {
-	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_START_IDX_UUID, function (data) {
+	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_START_IDX_UUID, function (err, data) {
+    if (err) {
+      return callback(err);
+    }
 		var data = data.readUInt32LE(0);
 		callback(data);
 	}.bind(this));
 };
 
 FlowerPower.prototype.getHistoryCurrentSessionPeriod = function(callback) {
-	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_PERIOD_UUID, function (data) {
+	this.readDataCharacteristic(HISTORY_SERVICE_UUID, HISTORY_CURRENT_SESSION_PERIOD_UUID, function (err, data) {
+    if (err) {
+      return callback(err);
+    }
 		var data = data.readUInt16LE(0);
 		callback(data);
 	}.bind(this));
@@ -654,7 +670,7 @@ Upload.prototype.startUpload = function (callback) {
 
 FlowerPower.prototype.getHistory = function (startIdx, callback) {
 	this.writeTxStartIdx(startIdx, function(err) {
-	new Upload(this, callback);	
+	new Upload(this, callback);
     }.bind(this));
 };
 
