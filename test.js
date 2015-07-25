@@ -271,60 +271,57 @@ FlowerPower.discover(function(flowerPower) {
     },
     function(callback) {
       console.log('getHistoryNbEntries');
-      flowerPower.getHistoryNbEntries(function(data) {
-		NbrEntrees = data;
-        callback();
+      flowerPower.getHistoryNbEntries(function(err, data) {
+        NbrEntrees = data;
+        callback(err);
       });
-    }, 
+    },
     function(callback) {
       console.log('getHistoryLastEntryIdx');
-      flowerPower.getHistoryLastEntryIdx(function(data) {
-		lastEntry = data;
-        callback();
+      flowerPower.getHistoryLastEntryIdx(function(err, data) {
+        lastEntry = data;
+        callback(err);
       });
     },
     function(callback) {
       console.log('getHistoryCurrentSessionID');
-      flowerPower.getHistoryCurrentSessionID(function(data) {
-		currentID = data;
-        callback();
-      });
-    }, 
-    function(callback) {
-      console.log('getHistoryCurrentSessionStartIdx');
-      flowerPower.getHistoryCurrentSessionStartIdx(function(data) {
-		sessionStartIndex = data;
-        callback();
-      });
-    }, 
-    function(callback) {
-      console.log('getHistoryCurrentSessionPeriod');
-      flowerPower.getHistoryCurrentSessionPeriod(function(data) {
-		sessionPeriod = data;
-        callback();
-      });
-    }, 
-    function(callback) {
-      console.log('getStartUpTime');
-      	flowerPower.getStartupTime(function(startupTime) {
-		sUpTime = startupTime;
-        callback();
+      flowerPower.getHistoryCurrentSessionID(function(err, data) {
+        currentID = data;
+        callback(err);
       });
     },
-    function(callback) { 
+    function(callback) {
+      console.log('getHistoryCurrentSessionStartIdx');
+      flowerPower.getHistoryCurrentSessionStartIdx(function(err, data) {
+        sessionStartIndex = data;
+        callback(err);
+      });
+    },
+    function(callback) {
+      console.log('getHistoryCurrentSessionPeriod');
+      flowerPower.getHistoryCurrentSessionPeriod(function(err, data) {
+        sessionPeriod = data;
+        callback(err);
+      });
+    },
+    function(callback) {
+      console.log('getStartUpTime');
+      flowerPower.getStartupTime(function(err, startupTime) {
+        sUpTime = startupTime;
+        callback(err);
+      });
+    },
+    function(callback) {
       startIdx = lastEntry - 200;
-      	flowerPower.getHistory(startIdx, function(error, history) {
-        	console.log('History received : ' + history);
-			historic = history;
-        	callback();
-      	});
-    }, 
-	function (callback) {
-		fs.appendFile(flowerPower.uuid+'.txt', historic, function (err) {
-  			if (err) throw err;
-			callback();
-		});					
-	},  
+        flowerPower.getHistory(startIdx, function(err, history) {
+          console.log('History received : ' + history);
+          historic = history;
+          callback(err);
+        });
+    },
+    function (callback) {
+      fs.appendFile(flowerPower.uuid+'.txt', historic, callback);
+    },
     function(callback) {
       console.log('ledPulse');
       flowerPower.ledPulse(callback);
