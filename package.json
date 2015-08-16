@@ -24,10 +24,10 @@
   "devDependencies": {
     "jshint": "~2.3.0",
     "async": "~0.2.9",
-    "bleno": "~0.1.8"
+    "bleno": "~0.1.8",
+    "noble": "^1.0.0",
   },
   "dependencies": {
-    "noble": "~0.3.6",
     "noble-device": "^1.0.0"
   }
 }
