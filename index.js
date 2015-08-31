@@ -44,10 +44,6 @@ var maxBufferSize = 128;
 function FlowerPower(peripheral) {
   NobleDevice.call(this, peripheral);
 
-  this._peripheral = peripheral;
-  this._services = {};
-  this._characteristics = {};
-  this.uuid = peripheral.uuid;
   this.name = peripheral.advertisement.localName;
   var flags = peripheral.advertisement.manufacturerData.readUInt8(0);
   this.flags={};
@@ -72,7 +68,7 @@ FlowerPower.SCAN_UUIDS = [LIVE_SERVICE_UUID];
 
 FlowerPower.prototype.toString = function() {
   return JSON.stringify({
-    uuid: this.uuid,
+    id: this.id,
     name: this.name
   });
 };
