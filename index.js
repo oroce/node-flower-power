@@ -1,7 +1,7 @@
 var events = require('events');
 var util = require('util');
 var async = require('async');
-
+var once = require('once');
 var NobleDevice = require('noble-device');
 
 var LIVE_SERVICE_UUID                       = '39e1fa0084a811e2afba0002a5d5c51b';
@@ -547,7 +547,7 @@ function Upload(fp, callback) {
 
   this.rxStatus = this.RxStatusEnum.STANDBY;
   this.TxStatus = this.TxStatusEnum.IDLE;
-  this.finishCallback = callback;
+  this.finishCallback = once(callback);
 
   this.startUpload(function(err) {
     if (err !== null) {
