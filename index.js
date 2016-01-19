@@ -45,11 +45,15 @@ function FlowerPower(peripheral) {
   NobleDevice.call(this, peripheral);
 
   this.name = peripheral.advertisement.localName;
-  var flags = peripheral.advertisement.manufacturerData.readUInt8(0);
   this.flags={};
-  this.flags.hasEntry = ((flags & (1<<0)) !== 0);
-  this.flags.hasMoved = ((flags & (1<<1)) !== 0);
-  this.flags.isStarting = ((flags & (1<<2)) !== 0);
+  var manufacturerData = peripheral.advertisement.manufacturerData;
+  if (manufacturerData) {
+    var flags = manufacturerData.readUInt8(0);
+  
+    this.flags.hasEntry = ((flags & (1<<0)) !== 0);
+    this.flags.hasMoved = ((flags & (1<<1)) !== 0);
+    this.flags.isStarting = ((flags & (1<<2)) !== 0);
+  }
   this._peripheral.on('disconnect', this.onDisconnect.bind(this));
 
 }
